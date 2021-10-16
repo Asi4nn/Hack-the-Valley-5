@@ -14,6 +14,8 @@ public class QuestionManager : MonoBehaviour
     public Button submitButton;
 
     private List<Question> unansweredQuestions;
+    private int dmgToEnemy = 20;
+    private int dmgToPlayer = 20;
     
     // Start is called before the first frame update
     void Start()
@@ -86,7 +88,7 @@ public class QuestionManager : MonoBehaviour
         {
             for (int i = 0; i < multipleChoiceObject.transform.childCount; i++)
             {
-                
+
                 string txt = multipleChoiceObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().text;
                 bool selected = multipleChoiceObject.transform.GetChild(i).GetComponent<MCButtonController>().selected;
                 if (selected && !currentQuestion.correctAnswers.Contains(txt) || !selected && currentQuestion.correctAnswers.Contains(txt))
@@ -100,10 +102,18 @@ public class QuestionManager : MonoBehaviour
         }
         else if (currentQuestion.questionType == "TypeFill")
         {
-            correct = typeFillObject.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text == currentQuestion.correctAnswers[0];
+            correct = typeFillObject.transform.GetChild(0).transform.transform.Find("Text").GetComponent<Text>().text.Equals(currentQuestion.correctAnswers[0]);
             typeFillObject.SetActive(false);
         }
 
+        if (correct)
+        {
+            gameObject.GetComponent<PlayerStats>().DamageEnemy(dmgToEnemy);
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerStats>().DamagePlayer(dmgToPlayer);
+        }
         
         GetRandomQuestion();
     }
