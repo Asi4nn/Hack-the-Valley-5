@@ -9,6 +9,7 @@ public class QuestionManager : MonoBehaviour
     public Text questionText;
     public Question currentQuestion;
     public GameObject multipleChoiceObject;
+    public GameObject typeFillObject;
 
     public Button submitButton;
 
@@ -17,6 +18,34 @@ public class QuestionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Question q = new Question();
+        q.prompt = "You are in the empty directory NiceGame. Turn NiceGame into an empty git repository.";
+        q.questionType = "MC";
+        q.correctAnswers = new List<string>{"git init"};
+        string[] ans = { "git add", "git init", "git config", "git start" };
+        q.answers = new List<string>(ans);
+        questions.Add(q);
+
+        q = new Question();
+        q.prompt = "How do you save all your changes for later without committing them to a repository?";
+        q.questionType = "MC";
+        q.correctAnswers = new List<string> { "git stash -u" };
+        string[] ans2 = { "git push --all", "git stash", "git stash -u", "git remote add origin git@repourl.git" };
+        q.answers = new List<string>(ans2);
+        questions.Add(q);
+
+        q = new Question();
+        q.prompt = "To pull changes from the remote branch feature in my current repository into my currently working branch feature2, I would do git pull ___ feature";
+        q.questionType = "TypeFill";
+        q.correctAnswers = new List<string> { "origin" };
+        string[] ans3 = { "remote", "master", "origin", "main" };
+        q.answers = new List<string>(ans3);
+        questions.Add(q);
+
+
+        multipleChoiceObject.SetActive(false);
+        typeFillObject.SetActive(false);
+
         submitButton.onClick.AddListener(Answer);
         unansweredQuestions = questions;
 
@@ -37,10 +66,15 @@ public class QuestionManager : MonoBehaviour
     {
         if (currentQuestion.questionType == "MC")
         {
+            multipleChoiceObject.SetActive(true);
             for (int i = 0; i < multipleChoiceObject.transform.childCount; i++)
             {
                 multipleChoiceObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().text = currentQuestion.answers[i];
             }
+        }
+        else if (currentQuestion.questionType == "TypeFill")
+        {
+            typeFillObject.SetActive(true);
         }
     }
 
@@ -61,8 +95,30 @@ public class QuestionManager : MonoBehaviour
                     break;
                 }
             }
+            multipleChoiceObject.SetActive(false);
+            ResetSelectedButtons();
+        }
+        else if (currentQuestion.questionType == "TypeFill")
+        {
+            correct = typeFillObject.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text == currentQuestion.correctAnswers[0];
+            typeFillObject.SetActive(false);
         }
 
+        
         GetRandomQuestion();
+    }
+
+    void ResetSelectedButtons()
+    {
+        for (int i = 0; i < multipleChoiceObject.transform.childCount; i++)
+        {
+            multipleChoiceObject.transform.GetChild(i).GetComponent<MCButtonController>().selected = false;
+            multipleChoiceObject.transform.GetChild(i).GetComponent<MCButtonController>().UpdateColour();
+        }
+    }
+
+    public void SetInactive()
+    {
+        gameObject.SetActive(false);
     }
 }

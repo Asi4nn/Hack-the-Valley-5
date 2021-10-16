@@ -16,6 +16,11 @@ public class MCButtonController : MonoBehaviour
     void ChangeSelected()
     {
         selected = !selected;
+        UpdateColour();
+    }
+
+    public void UpdateColour()
+    {
         if (selected)
         {
             button.GetComponent<Image>().color = new Color32(6, 255, 14, 146);
