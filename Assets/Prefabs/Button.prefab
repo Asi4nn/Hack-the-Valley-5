@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 5, y: -5}
+  m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
 --- !u!114 &1639279454583480738
 MonoBehaviour:
@@ -229,3 +229,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cdb1cd822fcdf41982106b24e0a68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  selected: 0

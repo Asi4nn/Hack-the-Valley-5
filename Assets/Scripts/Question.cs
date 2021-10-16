@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Question
 {
     public string prompt;
-    public string questionType; // change to enum later to MC/TypeFill/MCFill/Dots/Pool
+    public string questionType; // change to enum later to MC/TypeFill/Dots/Pool
     public List<string> correctAnswers;
     public List<string> answers;
 }
