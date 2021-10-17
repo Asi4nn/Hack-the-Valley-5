@@ -21,4 +21,10 @@ public class MainMenu : MonoBehaviour {
         Debug.Log("exit game");
         Application.Quit();
     }
+
+    public void BackButton() {
+        Debug.Log("return to main menu from difficulty selection");
+        StartMenu.SetActive(true);
+        DifficultyMenu.SetActive(false);
+    }
 }
