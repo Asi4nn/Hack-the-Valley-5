@@ -13,6 +13,9 @@ public class QuestionManager : MonoBehaviour
 
     public Button submitButton;
 
+    [SerializeField] TimerController timerController;
+    [SerializeField] int questionTime = 10;
+
     private List<Question> unansweredQuestions;
     private int dmgToEnemy = 20;
     private int dmgToPlayer = 20;
@@ -20,6 +23,7 @@ public class QuestionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // sample questions
         Question q = new Question();
         q.prompt = "You are in the empty directory NiceGame. Turn NiceGame into an empty git repository.";
         q.questionType = "MC";
@@ -66,6 +70,7 @@ public class QuestionManager : MonoBehaviour
 
     private void SetAnswers()
     {
+        timerController.SetTime(questionTime);
         if (currentQuestion.questionType == "MC")
         {
             multipleChoiceObject.SetActive(true);
