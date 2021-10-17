@@ -23,7 +23,7 @@ public class QuestionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // sample questions
+        /*// sample questions
         Question q = new Question();
         q.prompt = "You are in the empty directory NiceGame. Turn NiceGame into an empty git repository.";
         q.questionType = "MC";
@@ -46,8 +46,17 @@ public class QuestionManager : MonoBehaviour
         q.correctAnswers = new List<string> { "origin" };
         string[] ans3 = { "remote", "master", "origin", "main" };
         q.answers = new List<string>(ans3);
-        questions.Add(q);
-
+        questions.Add(q);*/
+        if (PlayerPrefs.GetString("difficulty").Equals("easy"))
+        {
+            gameObject.GetComponent<Match>().LoadEasyQuestions();
+            questions = gameObject.GetComponent<Match>().easyQuestionList;
+        }
+        else if (PlayerPrefs.GetString("difficulty").Equals("hard"))
+        {
+            gameObject.GetComponent<Match>().LoadHardQuestions();
+            questions = gameObject.GetComponent<Match>().hardQuestionList;
+        }
 
         multipleChoiceObject.SetActive(false);
         typeFillObject.SetActive(false);
