@@ -11,7 +11,7 @@ public class TimerController : MonoBehaviour
     [SerializeField] float remainingTime;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gameObject.SetActive(false);
     }
